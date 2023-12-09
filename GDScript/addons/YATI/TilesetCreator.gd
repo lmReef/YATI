@@ -223,11 +223,11 @@ func load_image(path: String):
 	var orig_path = path
 	var ret: Texture2D = null
 	# ToDo: Not sure if this first check makes any sense since an image can't be properly imported if not in project tree
-	if not FileAccess.file_exists(path):
+	if not FileAccess.file_exists(path) and not ResourceLoader.exists(path, "Image"):
 		path = _base_path_map.get_base_dir().path_join(orig_path)
-	if not FileAccess.file_exists(path):
+	if not FileAccess.file_exists(path) and not ResourceLoader.exists(path, "Image"):
 		path = _base_path_tileset.path_join(orig_path)
-	if FileAccess.file_exists(path):
+	if FileAccess.file_exists(path) or ResourceLoader.exists(path, "Image"):
 		var exists = ResourceLoader.exists(path, "Image")
 		if exists:
 			ret = load(path)
